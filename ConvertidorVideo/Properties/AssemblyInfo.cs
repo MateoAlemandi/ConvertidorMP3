@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("ConvertidorVideo")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Aplicativo para la conversion de videos a mp3")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Mateo Alemandi")]
 [assembly: AssemblyProduct("ConvertidorVideo")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
