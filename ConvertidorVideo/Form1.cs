@@ -25,6 +25,7 @@ namespace ConvertidorVideo
         {
             InitializeComponent();
             youtubeClient = new YoutubeClient();
+            progressBarDescargar.Visible = false;
             
         }
 
@@ -40,16 +41,18 @@ namespace ConvertidorVideo
 
             try
             {
-                var youtube = new YoutubeClient();
-                var video = await youtube.Videos.GetAsync(videoUrl);
-
-                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(video.Id);
-                var audioStreamInfo = streamManifest.GetMuxedStreams().GetWithHighestVideoQuality();
-
-                string audioDownloadUrl = audioStreamInfo.Url;
-
+                
                 using (var saveDialog = new SaveFileDialog())
                 {
+
+                    var youtube = new YoutubeClient();
+                    var video = await youtube.Videos.GetAsync(videoUrl);
+
+                    var streamManifest = await youtube.Videos.Streams.GetManifestAsync(video.Id);
+                    var audioStreamInfo = streamManifest.GetMuxedStreams().GetWithHighestVideoQuality();
+
+                    string audioDownloadUrl = audioStreamInfo.Url;
+
                     saveDialog.FileName = $"{video.Title}.mp3";
                     saveDialog.Filter = "Archivos MP3 (*.mp3)|*.mp3";
 
@@ -57,12 +60,26 @@ namespace ConvertidorVideo
                     {
                         string savePath = saveDialog.FileName;
 
-                        using (WebClient webClient = new WebClient())
-                        {
-                            webClient.DownloadFile(audioDownloadUrl, savePath);
-                        }
+                        // Utilizamos Task.Run para realizar la descarga en un hilo separado
+                        await Task.Run(() => {
 
-                        MessageBox.Show("Descarga completada.");
+                            using (WebClient webClient = new WebClient())
+                            {
+                                webClient.DownloadFile(audioDownloadUrl, savePath);
+                            }
+
+                        });
+
+
+                        // Actualizamos la barra de progreso desde el hilo principal
+                        progressBarDescargar.Invoke(new Action(() =>
+                        {
+                            progressBarDescargar.Visible = true;
+                            progressBarDescargar.Value = progressBarDescargar.Maximum;
+
+                        }));
+                        
+                        TodoenCero();
                     }
                 }
             }
@@ -70,6 +87,10 @@ namespace ConvertidorVideo
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
+            }
+            finally
+            {
+                MessageBox.Show("Descarga completada.");
             }
 
         }
@@ -81,10 +102,12 @@ namespace ConvertidorVideo
             inforFormulario.ShowDialog();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void TodoenCero()
         {
-
+            VideoUrlTextBox.Text = "";
+            progressBarDescargar.Visible = false;
         }
+        
     }
 
 }

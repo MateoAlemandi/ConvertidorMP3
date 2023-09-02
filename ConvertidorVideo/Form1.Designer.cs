@@ -37,6 +37,7 @@
             this.masInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label2 = new System.Windows.Forms.Label();
+            this.progressBarDescargar = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,13 +118,23 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Convertidor MP3";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // progressBarDescargar
+            // 
+            this.progressBarDescargar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarDescargar.Location = new System.Drawing.Point(313, 135);
+            this.progressBarDescargar.Name = "progressBarDescargar";
+            this.progressBarDescargar.Size = new System.Drawing.Size(291, 23);
+            this.progressBarDescargar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarDescargar.TabIndex = 7;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(955, 404);
+            this.Controls.Add(this.progressBarDescargar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.VideoUrlTextBox);
@@ -153,6 +164,7 @@
         private System.Windows.Forms.ToolStripMenuItem masInfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ProgressBar progressBarDescargar;
     }
 }
 
